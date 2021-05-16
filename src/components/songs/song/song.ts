@@ -26,4 +26,8 @@ export class Song {
             year: this._year
         }
     }
+
+    get title(): string {
+        return `${this._name} - ${this._artist}`
+    }
 }
