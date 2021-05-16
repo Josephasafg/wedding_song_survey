@@ -22,7 +22,7 @@ export const Songs: React.FC = () => {
                     title={song.title}
                     isChecked={song.title === pickedSong}
                     onChange={onSongChange}
-                    songsInfo={song.toSongProps()}/>
+                    embeddedLink={song.embeddedLink}/>
             })}
         </div>
     )
