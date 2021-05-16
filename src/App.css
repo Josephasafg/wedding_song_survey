@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.help-us-header {
+  direction: rtl;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
