@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
 import Radio from '@material-ui/core/Radio';
-import {DiscogsRequests} from "../../../API/discogs-requests";
 import {SongInfo} from "./song";
 import "./song.css";
 
@@ -10,7 +8,7 @@ interface SongProps {
     title: string
     isChecked: boolean
     onChange: (event: any) => void
-    songsInfo: SongInfo
+    embeddedLink: JSX.Element
 }
 
 export const SongComponent: React.FC<SongProps> = (
@@ -18,33 +16,22 @@ export const SongComponent: React.FC<SongProps> = (
         title,
         isChecked,
         onChange,
-        songsInfo
+        embeddedLink
     }) => {
-    const [thumbnail, setThumbnail] = useState("");
-    const name = `radio-button-${title}`;
-
-    const getImage = async () => {
-        const songResults = await DiscogsRequests.searchSong(songsInfo)
-        setThumbnail(songResults.thumb);
-    }
-
-    useEffect(() => {
-        getImage();
-    }, [])
 
     return (
         <div className="song-wrapper">
             <div>
                 {title}
             </div>
+
+            {embeddedLink}
             <Radio
                 checked={isChecked}
                 onChange={onChange}
                 value={title}
-                name={name}
-                inputProps={{ 'aria-label': 'A' }}
+                inputProps={{'aria-label': 'A'}}
             />
-            <img src={thumbnail}/>
         </div>
     )
 }
