@@ -2,13 +2,14 @@ import React, {useEffect, useState} from "react";
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import {DiscogsRequests} from "../../../API/discogs-requests";
+import {SongInfo} from "./song";
 
 
 interface SongProps {
     title: string
     isChecked: boolean
-    onChange: any
-    songsInfo: any
+    onChange: (event: any) => void
+    songsInfo: SongInfo
 }
 
 export const SongComponent: React.FC<SongProps> = (

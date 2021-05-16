@@ -1,4 +1,4 @@
-export interface SongProps {
+export interface SongInfo {
     artist: string
     track: string
     year: number
@@ -18,7 +18,7 @@ export class Song {
         this._year = year;
     }
 
-    public toSongProps(): SongProps {
+    public toSongProps(): SongInfo {
         return {
             artist: this._artist,
             track: this._name,
