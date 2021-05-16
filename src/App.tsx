@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Song} from "./components/songs/song/song";
+import {SongComponent} from "./components/songs/song/song-component";
 
 const SONG_TITLES = [
     "Shut up and Dance - Walk the Moon",
@@ -49,20 +49,20 @@ function App() {
 
     return (
         <div className="App">
-            <Song title={SONG_TITLES[0]}
-                  isChecked={0 === pickedSong}
-                  onChange={onSongChange}
-                  songsInfo={SONGS[0]}/>
+            <SongComponent title={SONG_TITLES[0]}
+                           isChecked={0 === pickedSong}
+                           onChange={onSongChange}
+                           songsInfo={SONGS[0]}/>
 
-            <Song title={SONG_TITLES[1]}
-                  isChecked={1 === pickedSong}
-                  onChange={onSongChange}
-                  songsInfo={SONGS[1]}/>
+            <SongComponent title={SONG_TITLES[1]}
+                           isChecked={1 === pickedSong}
+                           onChange={onSongChange}
+                           songsInfo={SONGS[1]}/>
 
-            <Song title={SONG_TITLES[2]}
-                  isChecked={2 === pickedSong}
-                  onChange={onSongChange}
-                  songsInfo={SONGS[2]}/>
+            <SongComponent title={SONG_TITLES[2]}
+                           isChecked={2 === pickedSong}
+                           onChange={onSongChange}
+                           songsInfo={SONGS[2]}/>
         </div>
     );
 }

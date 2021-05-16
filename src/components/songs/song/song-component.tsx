@@ -11,7 +11,7 @@ interface SongProps {
     songsInfo: any
 }
 
-export const Song: React.FC<SongProps> = (
+export const SongComponent: React.FC<SongProps> = (
     {
         title,
         isChecked,
