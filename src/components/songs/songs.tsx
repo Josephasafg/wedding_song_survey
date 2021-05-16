@@ -1,3 +1,4 @@
+import "./songs.css";
 import {createSongs} from "./songs-creator";
 import {SongComponent} from "./song/song-component";
 import {useState} from "react";
@@ -14,7 +15,7 @@ export const Songs: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="songs-wrapper">
             {songs.map((song, index) => {
                 return <SongComponent
                     key={index}
