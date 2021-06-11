@@ -1,34 +1,39 @@
 import React from "react";
 import Radio from '@material-ui/core/Radio';
 import "./song.css";
+import Iframe from "react-iframe";
+import {Song} from "../../../models/song";
 
 
 interface SongProps {
-    title: string
+    song: Song
     isChecked: boolean
     onChange: (event: any) => void
-    embeddedLink: JSX.Element
 }
 
 export const SongComponent: React.FC<SongProps> = (
     {
-        title,
         isChecked,
         onChange,
-        embeddedLink
+        song
     }) => {
 
     return (
         <div className="song-wrapper">
             <div>
-                {title}
+                {song.name}
             </div>
+            <Iframe
+                url={song.embeddedURL}
+                width="100%"
+                height="380"
+                frameBorder={0}
+                allow="encrypted-media"/>
 
-            {embeddedLink}
             <Radio
                 checked={isChecked}
                 onChange={onChange}
-                value={title}
+                value={song.id}
                 inputProps={{'aria-label': 'A'}}
             />
         </div>

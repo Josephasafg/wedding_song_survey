@@ -1,16 +1,23 @@
 import "./songs.css";
-import {createSongs} from "./songs-creator";
 import {SongComponent} from "./song/song-component";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {Song} from "../../models/song";
+import {SongSubmissionContext} from "../../App";
 
-export const Songs: React.FC = () => {
-    const [pickedSong, setPickedSong] = useState("");
+interface SongsProps {
+    songs: Song[]
+}
 
-    const songs = createSongs();
+export const Songs: React.FC<SongsProps> = (
+    {
+        songs
+    }
+) => {
+    const songContext = useContext(SongSubmissionContext);
 
     const onSongChange = (event: any): void => {
         if (event.target && event.target.value) {
-            setPickedSong(event.target.value);
+            songContext.updateSong(event.target.value);
         }
     }
 
@@ -19,10 +26,9 @@ export const Songs: React.FC = () => {
             {songs.map((song, index) => {
                 return <SongComponent
                     key={index}
-                    title={song.title}
-                    isChecked={song.title === pickedSong}
-                    onChange={onSongChange}
-                    embeddedLink={song.embeddedLink}/>
+                    song={song}
+                    isChecked={song.id.toString() === songContext.id.toString()}
+                    onChange={onSongChange}/>
             })}
         </div>
     )
