@@ -8,7 +8,7 @@ import {Song} from "./models/song";
 const HELP_US_TEXT = "בבקשה תעזרו לנו לבחור שיר לשבירת הכוס!";
 
 export const SongSubmissionContext = createContext({
-    id: -1, updateSong: (id: number) => {
+    id: -1, updateSong: (_: number) => {
     }
 });
 
