@@ -4,6 +4,7 @@ import {Songs} from "./components/songs/songs";
 import {SubmitButton} from "./components/submit-button/submit-button";
 import {SongsAPI} from "./API/api";
 import {Song} from "./models/song";
+import {CircularSpinner} from "./components/spinner/spinner";
 
 const HELP_US_TEXT = "בבקשה תעזרו לנו לבחור שיר לשבירת הכוס!";
 
@@ -14,10 +15,13 @@ export const SongSubmissionContext = createContext({
 
 function App() {
     const [songs, setSongs] = useState<Song[]>([]);
-    const [pickedSong, setPickedSong] = useState(-1)
+    const [pickedSong, setPickedSong] = useState(-1);
+    const [isLoad, setIsLoad] = useState(false);
 
     const onSubmit = async () => {
+        setIsLoad(true);
         await SongsAPI.submitChoice(pickedSong)
+        setIsLoad(false);
     }
 
     async function fetchSongs() {
@@ -37,7 +41,7 @@ function App() {
                     <header>{HELP_US_TEXT}</header>
                 </div>
                 <Songs songs={songs}/>
-                <SubmitButton onClick={onSubmit}/>
+                {isLoad ? <CircularSpinner/> : <SubmitButton onClick={onSubmit}/>}
             </div>
         </SongSubmissionContext.Provider>
     );

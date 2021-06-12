@@ -24,11 +24,16 @@ export class SongsAPI {
         return [];
     }
 
-    public static async submitChoice(songId: number): Promise<void> {
+    public static async submitChoice(songId: number): Promise<boolean> {
         try {
-            return await SONGS_API.post(`/song/${songId}/update`);
+            const response = await SONGS_API.post(`/song/${songId}/update`);
+
+            return response.status === 200;
+
         } catch (err) {
             console.error("Failed to submit song choice", err)
         }
+
+        return false;
     }
 }

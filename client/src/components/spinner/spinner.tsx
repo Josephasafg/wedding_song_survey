@@ -16,7 +16,7 @@ export const CircularSpinner = () => {
     const style = useStyles();
 
     return (
-        <div className={style.root}>
+        <div>
             <CircularProgress/>
         </div>
     )
