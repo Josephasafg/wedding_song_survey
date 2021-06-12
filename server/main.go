@@ -96,7 +96,7 @@ func basicAuth(handler func(ClientRequest) []Song) http.HandlerFunc {
 		//w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 		//w.Header().Set("Access-Control-Allow-Methods", "GET, PUT, OPTIONS, POST")
 
-		sa := option.WithCredentialsFile("wedding-song-survery-db-firebase-adminsdk-23kyw-f7a8885421.json")
+		sa := option.WithCredentialsFile("")
 		app, err := firebase.NewApp(context.Background(), nil, sa)
 		client, err := app.Firestore(context.Background())
 
