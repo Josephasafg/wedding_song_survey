@@ -5,6 +5,7 @@ import {SubmitButton} from "../submit-button/submit-button";
 import {Song} from "../../models/song";
 import {SongsAPI} from "../../API/api";
 
+
 const HELP_US_TEXT = "בבקשה תעזרו לנו לבחור שיר לשבירת הכוס!";
 
 
@@ -19,7 +20,6 @@ export const MainPage: React.FC<MainPageProps> = (
 
     const [isLoad, setIsLoad] = useState(false);
     const [songs, setSongs] = useState<Song[]>([]);
-
 
     const handleOnSubmit = () => {
         setIsLoad(true);

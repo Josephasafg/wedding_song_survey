@@ -1,6 +1,6 @@
 import "./songs.css";
 import {SongComponent} from "./song/song-component";
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import {Song} from "../../models/song";
 import {SongSubmissionContext} from "../../App";
 
