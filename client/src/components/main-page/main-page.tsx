@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {Songs} from "../songs/songs";
+import React, {useContext, useEffect, useState} from "react";
+import SongList from "../songs/songs";
 import {CircularSpinner} from "../spinner/spinner";
 import {SubmitButton} from "../submit-button/submit-button";
 import {Song} from "../../models/song";
 import {SongsAPI} from "../../API/api";
+import {SongSubmissionContext} from "../../App";
 
 
 const HELP_US_TEXT = "בבקשה תעזרו לנו לבחור שיר לשבירת הכוס!";
@@ -18,6 +19,7 @@ export const MainPage: React.FC<MainPageProps> = (
         onSubmit
     }) => {
 
+    const {id} = useContext(SongSubmissionContext);
     const [isLoad, setIsLoad] = useState(false);
     const [songs, setSongs] = useState<Song[]>([]);
 
@@ -42,8 +44,8 @@ export const MainPage: React.FC<MainPageProps> = (
             <div className="help-us-header">
                 <header>{HELP_US_TEXT}</header>
             </div>
-            <Songs songs={songs}/>
-            {isLoad ? <CircularSpinner/> : <SubmitButton onClick={handleOnSubmit}/>}
+            <SongList songs={songs}/>
+            {isLoad ? <CircularSpinner/> : <SubmitButton onClick={handleOnSubmit} pickedSongId={id}/>}
         </div>
     )
 }
