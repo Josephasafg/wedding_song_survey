@@ -1,5 +1,4 @@
 .songs-wrapper {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
+    /*display: flex;*/
+    flex-direction: column;
 }
