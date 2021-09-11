@@ -2,6 +2,7 @@ from typing import List
 
 import firebase_admin
 from fastapi import FastAPI, Depends
+from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
 from server.src.survey_server.dependecies import get_songs_controller
@@ -19,8 +20,14 @@ def authenticate_with_file() -> None:
 
 app = FastAPI()
 
+app.add_middleware(CORSMiddleware,
+                   allow_origins='http://localhost:3000',
+                   allow_credentials=True,
+                   allow_methods=['*'],
+                   allow_headers=['*'])
 
-@app.get('/songs')
+
+@app.get('/get-songs')
 def get_songs(songs_controller: SongsController = Depends(get_songs_controller)) -> List[Song]:
     return songs_controller.get_songs()
 

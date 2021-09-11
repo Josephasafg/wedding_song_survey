@@ -1,8 +1,8 @@
 from typing import List
 
 from server.src.survey_server.models.song import Song
-from server.src.survey_server.songs_controller.songs_service import SongService
-from server.src.survey_server.songs_controller.voter_service import VoterService
+from .songs_service import SongService
+from .voter_service import VoterService
 
 
 class SongsController:

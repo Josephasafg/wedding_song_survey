@@ -14,7 +14,7 @@ export class SongsAPI {
             const response = await SONGS_API.get("/get-songs");
 
             if (response && response.status === 200) {
-                return response.data.songs as Song[];
+                return response.data as Song[];
             }
 
         } catch (err) {
@@ -26,7 +26,7 @@ export class SongsAPI {
 
     public static async submitChoice(songId: number): Promise<boolean> {
         try {
-            const response = await SONGS_API.post(`/song/${songId}/update`);
+            const response = await SONGS_API.put(`/song/${songId}/update`);
 
             return response.status === 200;
 

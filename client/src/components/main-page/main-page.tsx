@@ -5,10 +5,10 @@ import {SubmitButton} from "../submit-button/submit-button";
 import {Song} from "../../models/song";
 import {SongsAPI} from "../../API/api";
 import {SongSubmissionContext} from "../../App";
+import {VoteCountdown} from "../countdown-clock/countdown-clock";
 
 
 const HELP_US_TEXT = "בבקשה תעזרו לנו לבחור שיר לשבירת הכוס!";
-
 
 interface MainPageProps {
     onSubmit: () => void
@@ -44,6 +44,9 @@ export const MainPage: React.FC<MainPageProps> = (
             <div className="help-us-header">
                 <header>{HELP_US_TEXT}</header>
             </div>
+            <VoteCountdown/>
+
+
             <SongList songs={songs}/>
             {isLoad ? <CircularSpinner/> : <SubmitButton onClick={handleOnSubmit} pickedSongId={id}/>}
         </div>
