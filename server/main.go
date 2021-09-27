@@ -7,10 +7,11 @@ import (
 	"net/http"
 	"strconv"
 
+	"log"
+	"strings"
+
 	"cloud.google.com/go/firestore"
 	"github.com/gorilla/mux"
-
-	"log"
 
 	firebase "firebase.google.com/go"
 	"github.com/rs/cors"
@@ -60,7 +61,7 @@ func main() {
 	router.HandleFunc("/song/{songId}/update", basicAuth(updateSong)).Methods("POST")
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{"http://localhost:3000"},
+		AllowedOrigins: []string{"*"},
 		// AllowCredentials: true,
 		// Enable Debugging for testing, consider disabling in production
 		// Debug: true,
@@ -73,12 +74,29 @@ func main() {
 }
 
 type ClientRequest struct {
-	client *firestore.Client
-	id     string
+	client  *firestore.Client
+	id      string
+	address string
+}
+
+type Body struct {
+	Address string `json:"address"`
+}
+
+func validateIPAddressNotVoted(clientRequest ClientRequest) {
+	dsnap, err := clientRequest.client.Collection("voters").Doc(clientRequest.address).Get(context.Background())
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	address := dsnap.Data()
 }
 
 func createClientRequest(client *firestore.Client, r *http.Request) ClientRequest {
 	pathParams := mux.Vars(r)
+
+	address := parseIPAddress(r.RemoteAddr)
 
 	parsedId, _ := strconv.ParseInt(pathParams["songId"], 10, 64)
 
@@ -87,16 +105,22 @@ func createClientRequest(client *firestore.Client, r *http.Request) ClientReques
 		log.Fatal("Id does not exist")
 	}
 
-	return ClientRequest{client: client, id: pathParams["songId"]}
+	return ClientRequest{client: client, id: pathParams["songId"], address: address}
+}
+
+func parseIPAddress(address string) string {
+	if strings.Contains(address, "[::1]") {
+		return "127.0.0.1"
+	}
+
+	splitString := strings.Split(address, ":")
+
+	return splitString[0]
 }
 
 func basicAuth(handler func(ClientRequest) []Song) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		//w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
-		//w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		//w.Header().Set("Access-Control-Allow-Methods", "GET, PUT, OPTIONS, POST")
-
-		sa := option.WithCredentialsFile("")
+		sa := option.WithCredentialsFile("wedding-song-survery-db-firebase-adminsdk-23kyw-f7a8885421.json")
 		app, err := firebase.NewApp(context.Background(), nil, sa)
 		client, err := app.Firestore(context.Background())
 
@@ -167,6 +191,23 @@ func updateSong(clientRequest ClientRequest) []Song {
 	log.Print("Updated Value!")
 
 	songs := make([]Song, 0)
+	createVoter(clientRequest)
 
 	return append(songs, Song{})
+}
+
+func createVoter(clientRequest ClientRequest) {
+	ctx := context.Background()
+
+	_, err := clientRequest.client.Collection("voters").Doc(clientRequest.address).Set(ctx, map[string]interface{}{})
+
+	// _, _, err := clientRequest.client.Collection("voters").Add(ctx, map[string]interface{}{
+	// 	"address": clientRequest.address,
+	// })
+
+	if err != nil {
+		log.Printf("An error has occured %s", err)
+	}
+
+	log.Print("Added voter %s", clientRequest.address)
 }
