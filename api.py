@@ -21,7 +21,7 @@ def authenticate_with_file() -> None:
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware,
-                   allow_origins='http://localhost:3000',
+                   allow_origins='https://fierce-wildwood-60677.herokuapp.com/',
                    allow_credentials=True,
                    allow_methods=['*'],
                    allow_headers=['*'])
