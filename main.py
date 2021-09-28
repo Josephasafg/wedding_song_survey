@@ -1,6 +1,6 @@
 import uvicorn as uvicorn
 
-from server.src.survey_server.api import app, authenticate_with_file
+from api import authenticate_with_file, app
 
 if __name__ == '__main__':
     authenticate_with_file()

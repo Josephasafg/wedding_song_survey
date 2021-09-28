@@ -1,9 +1,9 @@
 from fastapi import Depends
 from google.cloud import firestore
 
-from server.src.survey_server.songs_controller.songs_controller import SongsController
-from server.src.survey_server.songs_controller.songs_service import SongService
-from server.src.survey_server.songs_controller.voter_service import VoterService
+from songs_controller.songs_controller import SongsController
+from songs_controller.songs_service import SongService
+from songs_controller.voter_service import VoterService
 
 
 def quickstart_new_instance():

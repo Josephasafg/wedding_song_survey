@@ -2,7 +2,7 @@ from typing import List
 
 from google.cloud import firestore
 
-from server.src.survey_server.models.song import Song
+from models.song import Song
 
 COLLECTION_NAME = u'songs'
 

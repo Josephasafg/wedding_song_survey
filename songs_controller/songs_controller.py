@@ -1,6 +1,6 @@
 from typing import List
 
-from server.src.survey_server.models.song import Song
+from models.song import Song
 from .songs_service import SongService
 from .voter_service import VoterService
 

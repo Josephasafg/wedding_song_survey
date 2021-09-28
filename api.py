@@ -5,9 +5,9 @@ from fastapi import FastAPI, Depends
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
-from server.src.survey_server.dependecies import get_songs_controller
-from server.src.survey_server.models.song import Song
-from server.src.survey_server.songs_controller.songs_controller import SongsController
+from dependecies import get_songs_controller
+from models.song import Song
+from songs_controller.songs_controller import SongsController
 
 
 def authenticate_with_file() -> None:
