@@ -20,3 +20,6 @@ class SongsController:
             raise ValueError(f'User with ip: {ip_address} has already voted')
 
         self._songs_service.vote(song_id)
+
+    def get_winning_song(self) -> Song:
+        return self._songs_service.get_winning_song()

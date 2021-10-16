@@ -23,3 +23,9 @@ class SongService:
         song_document = self._db.collection(COLLECTION_NAME).document(song_id)
 
         song_document.update({'count': firestore.Increment(1)})
+
+    def get_winning_song(self) -> Song:
+        songs_doc = self._db.collection(COLLECTION_NAME).stream()
+        songs = [Song(**song.to_dict()) for song in songs_doc]
+
+        return max(songs, key=lambda song: int(song.count))

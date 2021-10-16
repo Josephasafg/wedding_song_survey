@@ -39,3 +39,8 @@ def update_songs(song_id: str,
     ip_address = request.client.host
 
     songs_controller.vote(song_id=song_id, ip_address=ip_address)
+
+
+@app.get('/song/winning-song')
+def get_winning_song(songs_controller: SongsController = Depends(get_songs_controller)):
+    return songs_controller.get_winning_song()
