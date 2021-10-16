@@ -16,8 +16,8 @@ class SongsController:
     def vote(self, ip_address: str, song_id: str):
         has_voted = self._voter_service.has_user_voted(ip_address)
 
-        if has_voted:
-            raise ValueError(f'User with ip: {ip_address} has already voted')
+        # if has_voted:
+        #     raise ValueError(f'User with ip: {ip_address} has already voted')
 
         self._songs_service.vote(song_id)
 
