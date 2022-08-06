@@ -2,6 +2,7 @@ from typing import List
 
 import firebase_admin
 from fastapi import FastAPI, Depends
+from firebase_admin import credentials
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 
@@ -15,13 +16,14 @@ def authenticate_with_file() -> None:
     Initialize the firestore app with the json key
     :return:
     """
-    firebase_admin.initialize_app()
+    cred = credentials.Certificate('cramel-dizengoff-firebase-adminsdk-ju61t-19bf296be8.json')
+    firebase_admin.initialize_app(cred)
 
 
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware,
-                   allow_origins='http://localhost:3000,https://www.marylousherriwomanly.com/',
+                   allow_origins='http://localhost:3000,https://www.dizengoffcenter.xyz/',
                    allow_credentials=True,
                    allow_methods=['*'],
                    allow_headers=['*'])
